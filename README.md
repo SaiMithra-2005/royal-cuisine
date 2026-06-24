@@ -49,26 +49,61 @@ A containerized full-stack food ordering web application built using Node.js and
 
 ---
 
-**⚡ Installation & Setup**
-1️⃣ Clone the Repository
+## ⚡ Installation & Setup
+
+Follow these steps to run the project locally:
+
+---
+
+### 1️⃣ Clone the Repository
+
+```bash
 git clone https://github.com/SaiMithra-2005/royal-cuisine.git
 cd royal-cuisine
+```
 
-2️⃣ Run Using Docker (Recommended)
+---
+
+### 2️⃣ Run Using Docker (Recommended)
+
 Make sure Docker is installed and running.
-docker-compose up --build
 
-3️⃣ Access the Application
-Open your browser and go to:
+```bash
+docker-compose up --build
+```
+
+---
+
+### 3️⃣ Access the Application
+
+Open your browser and visit:
+
+```
 http://localhost
+```
 
-🐳 Useful Docker Commands
-**Stop containers**
+---
+
+## 🐳 Useful Docker Commands
+
+### Stop containers
+
+```bash
 docker-compose down
-**Rebuild containers**
+```
+
+### Rebuild containers
+
+```bash
 docker-compose up --build
-**⚠️ Prerequisites**
+```
+
+---
+
+## ⚠️ Prerequisites
+
 Ensure the following are installed:
-Docker
-Docker Compose
-Git
+
+* Docker
+* Docker Compose
+* Git
