@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Success - Royal Cuisine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0fff0;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .success-box {
+      background: white;
+      display: inline-block;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: green;
+    }
+
+    .order-summary {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .order-summary p {
+      margin: 5px 0;
+    }
+
+    .token {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 20px;
+      color: darkblue;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-box">
+    <h1>✅ Order Placed Successfully!</h1>
+    <div class="order-summary" id="order-summary"></div>
+    <div class="token" id="token"></div>
+  </div>
+
+  <script>
+    let order = JSON.parse(localStorage.getItem("order"));
+    let total = localStorage.getItem("total");
+    let token = localStorage.getItem("token");
+
+    let summaryDiv = document.getElementById("order-summary");
+    summaryDiv.innerHTML = "<h2>Your Order:</h2>";
+
+    order.forEach(item => {
+      summaryDiv.innerHTML += `<p>${item.item} - ₹${item.price}</p>`;
+    });
+
+    summaryDiv.innerHTML += `<h3>Total: ₹${total}</h3>`;
+    document.getElementById("token").innerText = "🎟 Token Number: " + token;
+  </script>
+</body>
+</html>

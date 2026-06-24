@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url("https://img.freepik.com/free-photo/luxury-restaurant-interior_1127-3445.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 65px;
+  border-radius: 12px;
+  width: 580px;
+  text-align: center;
+  color: white;
+}
+
+.login-box h2 {
+  margin-bottom: 10px;
+}
+
+.login-box p {
+  margin-bottom: 25px;
+  color: #c59d5f;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 15px;
+  border-radius: 20px;
+  border: 2px solid #c59d5f;
+  background: none;
+  color: #c59d5f;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  background: #c59d5f;
+  color: black;
+}
+
+.extra {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.extra a {
+  color: #c59d5f;
+  text-decoration: none;
+}
+ 
+body {
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+              url("https://img.freepik.com/free-photo/luxury-restaurant-interior_1127-3445.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-box {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 40px;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  color: white;
+}
+
+.contact-box h2 {
+  margin-bottom: 10px;
+}
+
+.contact-box p {
+  margin-bottom: 25px;
+  color: #c59d5f;
+}
+
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.contact-box textarea {
+  resize: none;
+  height: 100px;
+}
+
+.contact-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 20px;
+  border: 2px solid #c59d5f;
+  background: none;
+  color: #c59d5f;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-box button:hover {
+  background: #c59d5f;
+  color: black;
+}
+

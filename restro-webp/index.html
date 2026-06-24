@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Cuisine</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+    }
+
+    nav .logo {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    /* Hero Section */
+    header {
+      height: 100vh; /* Full screen */
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      color: white;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/content12415.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(2px);
+      z-index: -1;
+    }
+
+    header .subtitle {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+      font-family: 'Georgia', serif;
+    }
+
+    header h1 {
+      font-size: 4rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+      font-family: 'Georgia', serif;
+      margin-bottom: 30px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: 3px solid white;
+      background-color: transparent;
+      color: white;
+      cursor: pointer;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: black;
+      color: white;
+    }
+    .btn a{
+      text-decoration: none;
+      color: white;
+    }
+
+    /* About Section */
+    #about {
+      background: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    #about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    #about p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 10px 0;
+    }
+
+    .social-icons {
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      color: white;
+      margin: 0 10px;
+      font-size: 20px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ffd700;
+    }
+    a button{
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header .subtitle {
+        font-size: 1.2rem;
+      }
+
+      .btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">Royal Cuisine</div>
+    <button onclick="window.location.href='frame.html'" style="margin-right:800px; padding:8px 18px; border-radius:18px; border:2.5px solid #c59d5f; background:none; color:#ffffff; cursor:pointer;">SPECIALS!</button>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header>
+    <div class="subtitle">Welcome to our Restaurant</div>
+    <h1>ROYAL CUISINE</h1>
+    <div class="button-group">
+      <button class="btn"><a href="menu.html">DISCOVER MENU</a></button>
+      <button class="btn"><a href="booktable.html">BOOK A TABLE</a></button>
+    </div>
+  </header>
+
+  <!-- About Us Section -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      At <strong>Royal Cuisine</strong>, we believe that food is more than just a meal — it’s an experience.
+      Our chefs bring together authentic flavors, fresh ingredients, and innovative techniques to craft
+      dishes that satisfy both your taste buds and your soul. Whether it’s a casual dinner or a grand
+      celebration, we are dedicated to creating unforgettable dining experiences with warm hospitality.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>📍 123 Main Street, Coimbatore, Tamil Nadu</p>
+    <p>📞 +91 98765 43210 | ✉️ royalcuisine@example.com</p>
+    <div class="social-icons">
+      <a href="#">🌐</a>
+      <a href="#">📘</a>
+      <a href="#">📸</a>
+      <a href="#">🐦</a>
+    </div>
+    <p>© 2025 Royal Cuisine. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

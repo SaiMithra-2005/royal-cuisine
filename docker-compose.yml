@@ -1,0 +1,24 @@
+services:
+  web1:
+    build: . 
+    networks:
+      - webnet
+
+  web2:
+    build: . 
+    networks:
+      - webnet
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - web1
+      - web2
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: bridge

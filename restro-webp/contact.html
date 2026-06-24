@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact | Royal Cuisine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="contact-section">
+  <div class="contact-box">
+    <h2>Contact Us</h2>
+    <p>We’d love to hear from you</p>
+
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault(); // stop page refresh
+
+    const formData = {
+        name: this.name.value,
+        email: this.email.value,
+        message: this.message.value
+    };
+
+    try {
+        const response = await fetch("http://localhost:3000/send-email", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.text();
+        alert(result);
+
+        this.reset(); // clear form
+    } catch (error) {
+        alert("Failed to send message");
+    }
+});
+
+</script>
+</body>
+</html>
+

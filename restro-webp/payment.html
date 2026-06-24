@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UPI Payment - Royal Cuisine</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 40px;
+      background: #f7f7f7;
+    }
+
+    .apps {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .apps button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      background: #2d89ef;
+      color: white;
+    }
+
+    img {
+      width: 250px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .paid-btn {
+      margin-top: 25px;
+      padding: 12px 25px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Pay Using UPI</h2>
+<h3>Total Amount: ₹<span id="amount"></span></h3>
+
+<div class="apps">
+  <button onclick="showQR('GPay')">Google Pay</button>
+  <button onclick="showQR('PhonePe')">PhonePe</button>
+  <button onclick="showQR('Paytm')">Paytm</button>
+</div>
+
+<img id="qr" />
+
+<br>
+<button class="paid-btn" onclick="confirmPayment()">I Have Paid</button>
+
+<script>
+  let total = localStorage.getItem("total") || 0;
+  document.getElementById("amount").innerText = total;
+
+  function showQR(appName) {
+    let upiId = "yourupi@bank"; // 🔴 replace with your real UPI ID
+
+    let upiUrl =
+      `upi://pay?pa=${upiId}&pn=RoyalCuisine&am=${total}&cu=INR`;
+
+    let qrImg = document.getElementById("qr");
+    qrImg.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
+      encodeURIComponent(upiUrl);
+
+    qrImg.style.display = "block";
+  }
+
+  function confirmPayment() {
+    window.location.href = "ordersuccess.html";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Table | Royal Cuisine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      background: url('https://img.freepik.com/free-photo/luxury-restaurant-interior_1127-3445.jpg') no-repeat center center/cover;
+      backdrop-filter: blur(5px);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+    }
+
+    nav .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffd700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-top: 120px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #f1f1f1;
+    }
+
+    /* Booking Form */
+    .booking-container {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      margin: 40px auto;
+      animation: slideUp 1.5s ease;
+    }
+
+    .booking-container h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ffd700;
+      font-family: 'Playfair Display', serif;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      color: #333;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, #ffd700, #b8860b);
+      color: black;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      font-weight: 600;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      color: #ddd;
+      margin-top: auto;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+
+    .social-icons a {
+      color: #ffd700;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 20px;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes slideUp {
+      from {opacity: 0; transform: translateY(50px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      .booking-container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">Royal Cuisine</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="booking.html">Book Table</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>Reserve Your Royal Experience</h1>
+    <p>Indulge in luxury dining — book your table now.</p>
+  </header>
+
+  <!-- Booking Form -->
+  <div class="booking-container">
+    <h2>Book a Table</h2>
+    <form onsubmit="return confirmBooking(event)">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="+91 98765 43210" pattern="[0-9]{10}" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="example@gmail.com" required>
+
+      <label for="date">Date</label>
+      <input type="date" id="date" required>
+
+      <label for="time">Time</label>
+      <input type="time" id="time" required>
+
+      <label for="guests">Guests</label>
+      <select id="guests" required>
+        <option value="">Select</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3-5</option>
+        <option>6-10</option>
+        <option>10+</option>
+      </select>
+
+      <label for="message">Special Requests</label>
+      <textarea id="message" placeholder="E.g., outdoor seating, anniversary setup..."></textarea>
+
+      <button type="submit">Confirm Booking</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>📍 123 Main Street, Coimbatore, Tamil Nadu</p>
+    <p>📞 +91 98765 43210 | ✉️ royalcuisine@example.com</p>
+    <div class="social-icons">
+      <a href="#">🌐</a>
+      <a href="#">📘</a>
+      <a href="#">📸</a>
+      <a href="#">🐦</a>
+    </div>
+    <p>© 2025 Royal Cuisine. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function confirmBooking(event) {
+      event.preventDefault();
+      alert("🎉 Your Royal table has been booked successfully! See you soon at Royal Cuisine.");
+      event.target.reset();
+    }
+  </script>
+
+</body>
+</html>

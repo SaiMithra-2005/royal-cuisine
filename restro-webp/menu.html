@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Food Items</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hotel-name {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 32px;
+            transition: transform 0.2s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .menu-categories {
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 90px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .category-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .category-name {
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .category-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .category-count {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .food-items-page {
+            display: none;
+            padding: 10px 20px;
+            max-width: 2500px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            background: white;
+            color: #667eea;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            margin: 0 40px;
+
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .food-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .food-info {
+            padding: 10px;
+        }
+
+        .food-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .food-description {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .food-price {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+            transition: right 0.3s;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 24px;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .close-cart:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .cart-item-price {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: #667eea;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .quantity-display {
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: auto;
+        }
+
+        .cart-footer {
+            padding: 25px;
+            border-top: 2px solid #e0e0e0;
+            background: #f8f9fa;
+        }
+
+        .cart-total {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-cart-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .payment-page {
+            display: none;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .payment-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .payment-header h2 {
+            color: #667eea;
+            font-size: 32px;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .order-summary h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            margin-top: 15px;
+            border-top: 2px solid #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .payment-methods h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option:hover {
+            border-color: #667eea;
+        }
+
+        .payment-option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .payment-icon {
+            font-size: 32px;
+            margin-right: 15px;
+        }
+
+        .payment-details {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .payment-description {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .payment-form {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .payment-form.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        .order-confirmed {
+            display: none;
+            padding: 40px 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .confirmed-container {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .success-animation {
+            font-size: 100px;
+            margin-bottom: 30px;
+        }
+
+        .confirmed-container h2 {
+            color: #2ecc71;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .order-details-box {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .back-home-btn {
+            padding: 16px 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            .food-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="hotel-name">Royal Cuisine</div>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div id="categoriesPage" class="menu-categories">
+        <h1 class="page-title">Explore Our Menu</h1>
+        <div class="categories-grid" id="categoriesGrid"></div>
+    </div>
+
+    <div id="foodItemsPage" class="food-items-page">
+        <button class="back-btn" onclick="backToCategories()">← Back to Menu</button>
+        <h1 class="page-title" id="categoryPageTitle"></h1>
+        <div class="food-grid" id="foodGrid"></div>
+    </div>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
+                <h3>Your cart is empty</h3>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>₹<span id="cartTotal">0</span></span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToPayment()">Checkout</button>
+        </div>
+    </div>
+
+    <div id="paymentPage" class="payment-page">
+        <div class="payment-container">
+            <div class="payment-header">
+                <h2>💳 Payment</h2>
+            </div>
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div id="paymentOrderItems"></div>
+                <div class="order-total">
+                    <span>Total:</span>
+                    <span>₹<span id="paymentTotal">0</span></span>
+                </div>
+            </div>
+            <div class="payment-methods">
+                <h3>Select Payment Method</h3>
+                <div class="payment-option" onclick="selectPayment('upi')">
+                    <div class="payment-icon">📱</div>
+                    <div class="payment-details">
+                        <div class="payment-name">UPI Payment</div>
+                        <div class="payment-description">Google Pay, PhonePe, Paytm</div>
+                    </div>
+                </div>
+                <div id="upiForm" class="payment-form">
+    <p style="margin-bottom:15px;font-weight:bold">
+        Scan QR or choose app
+    </p>
+
+    <img id="upiQR" style="width:220px;display:none;margin:15px auto"/>
+
+    <div style="display:flex;gap:15px;justify-content:center;align-items:center">
+    <button onclick="payUPI('gpay')" style="display:flex;align-items:center;gap:5px;padding:10px 15px;border:none;background:#fff;border-radius:8px;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.2)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_Pay_Logo.png" alt="GPay" style="height:24px"/>
+        Google Pay
+    </button>
+    <button onclick="payUPI('phonepe')" style="display:flex;align-items:center;gap:5px;padding:10px 15px;border:none;background:#fff;border-radius:8px;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.2)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/PhonePe_Logo.png" alt="PhonePe" style="height:24px"/>
+        PhonePe
+    </button>
+    <button onclick="payUPI('paytm')" style="display:flex;align-items:center;gap:5px;padding:10px 15px;border:none;background:#fff;border-radius:8px;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,0.2)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Paytm_logo.png" alt="Paytm" style="height:24px"/>
+        Paytm
+    </button>
+</div>
+
+
+    <br>
+    <button class="btn-primary" onclick="confirmOrder('UPI QR')">
+        I Have Paid
+    </button>
+</div>
+
+
+                <div class="payment-option" onclick="selectPayment('card')">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-details">
+                        <div class="payment-name">Card Payment</div>
+                        <div class="payment-description">Credit/Debit Card</div>
+                    </div>
+                </div>
+                <div id="cardForm" class="payment-form">
+                    <div class="input-group">
+                        <label>Card Number</label>
+                        <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="input-group">
+                        <label>Name on Card</label>
+                        <input type="text" placeholder="Full Name">
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Expiry</label>
+                            <input type="text" placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="input-group">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="confirmOrder('Card')">Pay Now</button>
+                </div>
+
+                <div class="payment-option" onclick="selectPayment('netbanking')">
+                    <div class="payment-icon">🏦</div>
+                    <div class="payment-details">
+                        <div class="payment-name">Net Banking</div>
+                        <div class="payment-description">All major banks</div>
+                    </div>
+                </div>
+                <div id="netbankingForm" class="payment-form">
+                    <div class="input-group">
+                        <label>Select Bank</label>
+                        <select>
+                            <option>State Bank of India</option>
+                            <option>HDFC Bank</option>
+                            <option>ICICI Bank</option>
+                            <option>Axis Bank</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="confirmOrder('Net Banking')">Proceed</button>
+                </div>
+
+                <div class="payment-option" onclick="selectPayment('wallet')">
+                    <div class="payment-icon">👛</div>
+                    <div class="payment-details">
+                        <div class="payment-name">Digital Wallet</div>
+                        <div class="payment-description">Paytm, Amazon Pay</div>
+                    </div>
+                </div>
+                <div id="walletForm" class="payment-form">
+                    <div class="input-group">
+                        <label>Select Wallet</label>
+                        <select>
+                            <option>Paytm</option>
+                            <option>Amazon Pay</option>
+                            <option>Mobikwik</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="confirmOrder('Wallet')">Pay Now</button>
+                </div>
+
+                <div class="payment-option" onclick="selectPayment('cod')">
+                    <div class="payment-icon">💵</div>
+                    <div class="payment-details">
+                        <div class="payment-name">Cash on Delivery</div>
+                        <div class="payment-description">Pay when you receive</div>
+                    </div>
+                </div>
+                <div id="codForm" class="payment-form">
+                    <p style="margin-bottom: 15px;">Pay cash when your order arrives</p>
+                    <button class="btn-primary" onclick="confirmOrder('Cash on Delivery')">Confirm Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="orderConfirmed" class="order-confirmed">
+        <div class="confirmed-container">
+            <div class="success-animation">✓</div>
+            <h2>Order Confirmed!</h2>
+            <p>Your order has been placed successfully</p>
+            <div class="order-details-box">
+                <h3>Order Details</h3>
+                <div id="confirmedOrderDetails"></div>
+            </div>
+            <button class="back-home-btn" onclick="backToHome()">Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        const categories = [
+            {
+                name: 'Indian',
+                image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400',
+                description: 'Authentic Indian cuisine with rich flavors',
+                id: 'indian'
+            },
+            {
+                name: 'Chinese',
+                image: 'https://images.unsplash.com/photo-1526318896980-cf78c088247c?w=400',
+                description: 'Delicious Chinese delicacies',
+                id: 'chinese'
+            },
+            {
+                name: 'Italian',
+                image: 'https://images.unsplash.com/photo-1595295333158-4742f28fbd85?w=400',
+                description: 'Classic Italian pasta and pizza',
+                id: 'italian'
+            },
+            {
+                name: 'Mexican',
+                image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400',
+                description: 'Spicy and flavorful Mexican food',
+                id: 'mexican'
+            },
+            {
+                name: 'Desserts',
+                image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400',
+                description: 'Sweet treats and delightful desserts',
+                id: 'desserts'
+            },
+            {
+                name: 'Beverages',
+                image: 'https://images.unsplash.com/photo-1546173159-315724a31696?w=400',
+                description: 'Refreshing drinks and smoothies',
+                id: 'beverages'
+            }
+        ];
+
+        const foodItems = {
+            indian: [
+                {name: 'Butter Chicken', price: 299, image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400', desc: 'Creamy tomato-based curry with tender chicken'},
+                {name: 'Biryani', price: 249, image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400', desc: 'Aromatic basmati rice with spiced meat'},
+                {name: 'Paneer Tikka', price: 199, image: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400', desc: 'Grilled cottage cheese with spices'},
+                {name: 'Dal Makhani', price: 179, image: 'https://www.sharmispassions.com/wp-content/uploads/2012/05/dal-makhani7.jpg', desc: 'Creamy black lentils slow-cooked'},
+                {name: 'Tandoori Chicken', price: 329, image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400', desc: 'Chicken marinated in yogurt and spices'},
+                {name: 'Palak Paneer', price: 189, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2020/06/palak-paneer-recipe.jpg', desc: 'Cottage cheese in spinach gravy'},
+                {name: 'Naan', price: 49, image: 'https://www.cookwithmanali.com/wp-content/uploads/2014/11/Soft-Homemade-Naan-500x500.jpg', desc: 'Soft leavened flatbread'},
+                {name: 'Samosa', price: 39, image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400', desc: 'Crispy pastry with potato filling'},
+                {name: 'Chole Bhature', price: 149, image: 'https://img.pikbest.com/photo/20250514/a-hearty-north-indian-breakfast-chole-bhature-with-steam-rising_11715478.jpg!bw700', desc: 'Spicy chickpeas with fried bread'}
+            ],
+            chinese: [
+                {name: 'Fried Rice', price: 189, image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400', desc: 'Wok-tossed rice with vegetables'},
+                {name: 'Manchurian', price: 169, image: 'https://holycowvegan.net/wp-content/uploads/2020/03/veg-manchurian-6.jpg', desc: 'Deep-fried veggie balls in sauce'},
+                {name: 'Chow Mein', price: 199, image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?w=400', desc: 'Stir-fried noodles with veggies'},
+                {name: 'Spring Rolls', price: 149, image: 'https://ranveerbrar.com/wp-content/uploads/2021/02/Chicken-Spring-Rolls-1.jpg', desc: 'Crispy rolls with vegetable filling'},
+                {name: 'Hot & Sour Soup', price: 129, image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400', desc: 'Spicy and tangy Chinese soup'},
+                {name: 'Momos', price: 139, image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400', desc: 'Steamed dumplings with filling'},
+                {name: 'Hakka Noodles', price: 179, image: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400', desc: 'Indo-Chinese style noodles'},
+                {name: 'Szechuan Chicken', price: 249, image: 'https://www.jocooks.com/wp-content/uploads/2023/01/szechuan-chicken-1-7.jpg', desc: 'Spicy chicken in Szechuan sauce'},
+                {name: 'Honey Chilli Potato', price: 159, image: 'https://images.unsplash.com/photo-1639024471283-03518883512d?w=400', desc: 'Crispy potato in sweet chilli sauce'}
+            ],
+            italian: [
+                {name: 'Margherita Pizza', price: 299, image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400', desc: 'Classic tomato and mozzarella pizza'},
+                {name: 'Pasta Alfredo', price: 249, image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400', desc: 'Creamy white sauce pasta'},
+                {name: 'Lasagna', price: 329, image: 'https://images.unsplash.com/photo-1619895092538-128341789043?w=400', desc: 'Layered pasta with meat sauce'},
+                {name: 'Bruschetta', price: 149, image: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=400', desc: 'Toasted bread with tomato topping'},
+                {name: 'Pepperoni Pizza', price: 349, image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400', desc: 'Pizza topped with pepperoni slices'},
+                {name: 'Spaghetti Carbonara', price: 269, image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?w=400', desc: 'Pasta with bacon and egg sauce'},
+                {name: 'Risotto', price: 289, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBcpV0q90J4P57igwHedJi7VywLdzfQhzChZWZCI87-CsRVDM20PcPZOBoavZ6x18UQosOpqYqOZb0eeW27mgxP-4UhcZrd6BGYBIuSg&s=10', desc: 'Creamy Italian rice dish'},
+                {name: 'Garlic Bread', price: 89, image: 'https://www.generalmillsindiabfs.in/wp-content/uploads/2020/10/Pillsbury-India-GarlicBread-770x513-1.jpg', desc: 'Toasted bread with garlic butter'},
+                {name: 'Tiramisu', price: 179, image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400', desc: 'Classic Italian coffee dessert'}
+            ],
+            mexican: [
+                {name: 'Tacos', price: 199, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400', desc: 'Soft tortillas with meat and salsa'},
+                {name: 'Burrito', price: 229, image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400', desc: 'Wrapped tortilla with rice and beans'},
+                {name: 'Quesadilla', price: 189, image: 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?w=400', desc: 'Grilled tortilla with cheese'},
+                {name: 'Nachos', price: 149, image: 'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=400', desc: 'Crispy chips with cheese sauce'},
+                {name: 'Enchiladas', price: 249, image: 'https://www.perfectitaliano.com.au/content/dam/perfectitaliano-aus/recipe/0_desktop/Desktop-Easy-Beef-Enchiladas.jpg', desc: 'Rolled tortillas with chilli sauce'},
+                {name: 'Fajitas', price: 279, image: 'https://assets.epicurious.com/photos/63ceae6c369e5f53aace10de/4:3/w_5323,h_3992,c_limit/ChickenFajitas_RECIPE_012023_46012.jpg', desc: 'Grilled meat with peppers and onions'},
+                {name: 'Guacamole & Chips', price: 129, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2eJ29u8J6GHGMJktfT0jnvvcTZqD48X-WRQ&s', desc: 'Avocado dip with tortilla chips'},
+                {name: 'Churros', price: 99, image: 'https://brokebankvegan.com/wp-content/uploads/2021/01/Churros-1561x1-1.jpg', desc: 'Fried dough pastry with sugar'},
+                {name: 'Mexican Rice Bowl', price: 219, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSkaXqqLZRxV0TIj6dTqoZ3kQ0FZfO94SXgQ&s', desc: 'Rice bowl with beans and salsa'}
+            ],
+            desserts: [
+                {name: 'Chocolate Cake', price: 159, image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400', desc: 'Rich chocolate layered cake'},
+                {name: 'Ice Cream Sundae', price: 129, image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400', desc: 'Ice cream with toppings and syrup'},
+                {name: 'Brownie', price: 119, image: 'https://images.unsplash.com/photo-1607920591413-4ec007e70023?w=400', desc: 'Fudgy chocolate brownie'},
+                {name: 'Cheesecake', price: 189, image: 'https://www.momontimeout.com/wp-content/uploads/2023/09/no-bake-peanut-butter-cheesecake-square.jpeg', desc: 'Creamy cheesecake with graham base'},
+                {name: 'Gulab Jamun', price: 89, image: 'https://www.cadburydessertscorner.com/hubfs/dc-website-2022/articles/soft-gulab-jamun-recipe-for-raksha-bandhan-from-dough-to-syrup-all-you-need-to-know/soft-gulab-jamun-recipe-for-raksha-bandhan-from-dough-to-syrup-all-you-need-to-know.webp', desc: 'Sweet milk balls in sugar syrup'},
+                {name: 'Rasgulla', price: 79, image: 'https://madhurasrecipe.com/wp-content/uploads/2023/10/Rasgulla-Featured-Image.jpg', desc: 'Soft cottage cheese balls in syrup'},
+                {name: 'Apple Pie', price: 149, image: 'https://daddioskitchen.com/wp-content/uploads/2022/11/IMG-2885.jpg', desc: 'Classic apple pie with crust'},
+                {name: 'Panna Cotta', price: 139, image: 'https://pescetarian.kitchen/wp-content/uploads/2017/01/IMG_1061.jpg', desc: 'Italian cream dessert'},
+                {name: 'Chocolate Mousse', price: 169, image: 'https://www.recipetineats.com/tachyon/2018/09/Chocolate-Mousse_9.jpg?resize=500%2C500', desc: 'Light and airy chocolate dessert'}
+            ],
+            beverages: [
+                {name: 'Fresh Lime Soda', price: 69, image: 'https://images.unsplash.com/photo-1546173159-315724a31696?w=400', desc: 'Refreshing lime with soda'},
+                {name: 'Mango Smoothie', price: 99, image: 'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400', desc: 'Thick mango blended drink'},
+                {name: 'Iced Coffee', price: 89, image: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400', desc: 'Cold brew coffee with ice'},
+                {name: 'Masala Chai', price: 49, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9DgwwYeA-hJ3LYwrH7myNw8ybTHADUEj0iA&s', desc: 'Indian spiced tea'},
+                {name: 'Fresh Orange Juice', price: 79, image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400', desc: 'Freshly squeezed orange juice'},
+                {name: 'Berry Blast Shake', price: 119, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400', desc: 'Mixed berries milkshake'},
+                {name: 'Green Tea', price: 59, image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400', desc: 'Healthy green tea'},
+                {name: 'Coca Cola', price: 49, image: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400', desc: 'Chilled soft drink'},
+                {name: 'Lemonade', price: 69, image: 'https://lmld.org/wp-content/uploads/2022/04/Lemonade-4.jpg', desc: 'Sweet and tangy lemonade'}
+            ]
+        };
+
+        let cart = [];
+        let currentCategory = '';
+
+        function loadCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="category-card" onclick="viewCategory('${cat.id}')">
+                    <img src="${cat.image}" alt="${cat.name}" class="category-image">
+                    <div class="category-info">
+                        <div class="category-name">${cat.name}</div>
+                        <div class="category-description">${cat.description}</div>
+                        <div class="category-count">${foodItems[cat.id].length} items available</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewCategory(categoryId) {
+            currentCategory = categoryId;
+            const category = categories.find(c => c.id === categoryId);
+           
+            document.getElementById('categoriesPage').style.display = 'none';
+            document.getElementById('foodItemsPage').style.display = 'block';
+            document.getElementById('categoryPageTitle').textContent = category.name + ' Menu';
+           
+            const grid = document.getElementById('foodGrid');
+            grid.innerHTML = foodItems[categoryId].map((item, index) => `
+                <div class="food-card">
+                    <img src="${item.image}" alt="${item.name}" class="food-image">
+                    <div class="food-info">
+                        <div class="food-name">${item.name}</div>
+                        <div class="food-description">${item.desc}</div>
+                        <div class="food-price">₹${item.price}</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('${categoryId}', ${index})">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function backToCategories() {
+            document.getElementById('foodItemsPage').style.display = 'none';
+            document.getElementById('categoriesPage').style.display = 'block';
+        }
+
+        function addToCart(categoryId, index) {
+            const item = foodItems[categoryId][index];
+            const existingItem = cart.find(i => i.name === item.name);
+           
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({...item, quantity: 1});
+            }
+           
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+           
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+           
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h3>Your cart is empty</h3>
+                    </div>
+                `;
+            } else {
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">₹${item.price}</div>
+                            <div class="cart-item-controls">
+                                <button class="qty-btn" onclick="decreaseQuantity(${index})">-</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="qty-btn" onclick="increaseQuantity(${index})">+</button>
+                                <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+           
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = total;
+        }
+
+        function increaseQuantity(index) {
+            cart[index].quantity++;
+            updateCart();
+        }
+
+        function decreaseQuantity(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+        }
+
+        function proceedToPayment() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+           
+            document.getElementById('categoriesPage').style.display = 'none';
+            document.getElementById('foodItemsPage').style.display = 'none';
+            document.getElementById('cartSidebar').classList.remove('open');
+            document.getElementById('paymentPage').style.display = 'block';
+           
+            const orderItems = document.getElementById('paymentOrderItems');
+            const paymentTotal = document.getElementById('paymentTotal');
+           
+            orderItems.innerHTML = cart.map(item => `
+                <div class="order-item">
+                    <span>${item.name} × ${item.quantity}</span>
+                    <span>₹${item.price * item.quantity}</span>
+                </div>
+            `).join('');
+           
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            paymentTotal.textContent = total;
+        }
+
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+           
+            document.querySelectorAll('.payment-form').forEach(form => {
+                form.classList.remove('active');
+            });
+           
+            document.getElementById(method + 'Form').classList.add('active');
+        }
+
+        function confirmOrder(paymentMethod) {
+            document.getElementById('paymentPage').style.display = 'none';
+            document.getElementById('orderConfirmed').style.display = 'block';
+           
+            const orderNumber = Math.floor(100000 + Math.random() * 900000);
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+           
+            const confirmedDetails = document.getElementById('confirmedOrderDetails');
+            confirmedDetails.innerHTML = `
+                <div class="detail-row">
+                    <span style="font-weight: bold;">Order ID:</span>
+                    <span>#${orderNumber}</span>
+                </div>
+                <div class="detail-row">
+                    <span style="font-weight: bold;">Payment Method:</span>
+                    <span>${paymentMethod}</span>
+                </div>
+                <div class="detail-row">
+                    <span style="font-weight: bold;">Total Amount:</span>
+                    <span style="color: #667eea; font-weight: bold;">₹${total}</span>
+                </div>
+                <div class="detail-row">
+                    <span style="font-weight: bold;">Delivery Time:</span>
+                    <span>30-45 minutes</span>
+                </div>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                    <strong>Items Ordered:</strong>
+                    ${cart.map(item => `<p style="margin-top: 10px;">${item.name} × ${item.quantity} - ₹${item.price * item.quantity}</p>`).join('')}
+                </div>
+            `;
+        }
+
+        function backToHome() {
+            cart = [];
+            updateCart();
+            document.getElementById('orderConfirmed').style.display = 'none';
+            document.getElementById('categoriesPage').style.display = 'block';
+        }
+
+        loadCategories();
+
+        let total = localStorage.getItem("total") || 0;
+    document.getElementById("amount").innerText = total;
+
+    function showQR(appName) {
+      let upiId = "yourupi@bank";
+
+      let upiUrl =
+        `upi://pay?pa=${upiId}&pn=RoyalCuisine&am=${total}&cu=INR`;
+
+      let qrImg = document.getElementById("qr");
+      qrImg.src =
+        "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
+        encodeURIComponent(upiUrl);
+
+      qrImg.style.display = "block";
+    }
+
+    async function confirmPayment() {
+  const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const response = await fetch("http://localhost:3000/place-order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      amount: totalAmount,
+      paymentMethod: "UPI QR",
+      items: cart
+    })
+  });
+
+  const data = await response.json();
+
+  if (data.success) {
+    alert("Order placed successfully! Order ID: " + data.orderId);
+    // redirect to success page
+    window.location.href = "ordersuccess.html";
+  } else {
+    alert("Order failed: " + data.message);
+  }
+}
+
+
+    // ✅ ADD THIS FUNCTION HERE (INSIDE SAME SCRIPT)
+    function payUPI(app) {
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const upiId = "6385728448@ptsbi"; // replace with your actual UPI ID
+    const name = "Royal Cuisine";
+    const transactionNote = "Order Payment";
+
+    // Construct UPI URL
+    const upiURL = `upi://pay?pa=${upiId}&pn=${name}&tn=${transactionNote}&am=${total}&cu=INR`;
+
+    // Optional: show QR code for scanning
+    const qr = document.getElementById("upiQR");
+    qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(upiURL);
+    qr.style.display = "block";
+
+    // Redirect to app
+    window.location.href = upiURL;
+}
+
+    </script>
+</body>
+</html>
