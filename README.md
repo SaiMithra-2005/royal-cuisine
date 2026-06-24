@@ -2,8 +2,6 @@
 
 A containerized full-stack food ordering web application built using Node.js and deployed using Docker with Nginx as a reverse proxy and load balancer.
 
----
-
 ## 🚀 Live Demo
 
 🔗 [Live Demo](https://royal-cuisine.onrender.com)
@@ -51,4 +49,26 @@ A containerized full-stack food ordering web application built using Node.js and
 
 ---
 
-## 📂 Project Structure
+**⚡ Installation & Setup**
+1️⃣ Clone the Repository
+git clone https://github.com/SaiMithra-2005/royal-cuisine.git
+cd royal-cuisine
+
+2️⃣ Run Using Docker (Recommended)
+Make sure Docker is installed and running.
+docker-compose up --build
+
+3️⃣ Access the Application
+Open your browser and go to:
+http://localhost
+
+🐳 Useful Docker Commands
+**Stop containers**
+docker-compose down
+**Rebuild containers**
+docker-compose up --build
+**⚠️ Prerequisites**
+Ensure the following are installed:
+Docker
+Docker Compose
+Git
